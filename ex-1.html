@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Details</title>
+    <style>
+        div#maincontent {
+            height: 150px;
+            width: 500px;
+            border: 1px solid #CEE2FA;
+            text-align: left;
+            color: #08438E;
+            font-family: calibri;
+            font-size: 20;
+            padding: 5px;
+        }
+        div#heading {
+            text-decoration: bold;
+            text-align: center;
+            margin-top: 80px;
+            width: 500px;
+            border: 1px solid #CEE2FA;
+            text-align: center;
+            color: #08438E;
+            background-color: #CEE2FA;
+            font-family: calibri;
+            font-size: 20;
+            padding: 5px;
+        }
+        h4 {
+            padding: 0; margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div id="heading">
+            <b>Theatre Drama</b>
+        </div>
+        <div id="maincontent">
+            <h4>Your Ticket Details:</h4>
+            <br>
+            <script>
+               // Function to calculate total price and discounted price
+function calculatePrice(ticketPrice, numberOfTickets, discountPercentage) {
+    // Calculate total price without discount
+    let totalPrice = ticketPrice * numberOfTickets;
+    
+    // Calculate discount amount
+    let discountAmount = (totalPrice * discountPercentage) / 100;
+    
+    // Calculate discounted price
+    let discountedPrice = totalPrice - discountAmount;
+    
+    // Return an object containing total price and discounted price
+    return {
+        totalPrice: totalPrice,
+        discountedPrice: discountedPrice
+    };
+}
+
+// Example usage
+let ticketPrice = 50; // Price of each ticket
+let numberOfTickets = 4; // Number of tickets
+let discountPercentage = 10; // Discount percentage
+
+// Call the function to calculate total price and discounted price
+let prices = calculatePrice(ticketPrice, numberOfTickets, discountPercentage);
+
+// Display the results
+console.log("Total Price: $" + prices.totalPrice.toFixed(2));
+console.log("Discounted Price: $" + prices.discountedPrice.toFixed(2));
+ //Write the code to calculate the total price and discounted price for the tickets
+            </script>
+        </div>    </center></body></html>
