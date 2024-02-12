@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Summary</title>
+    <style>
+        body {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            vertical-align: middle;
+            height: 86vh;
+        }
+
+        #maincontent {
+            height: 200px;
+            width: 500px;
+            border: 1px solid #CEE2FA;
+            text-align: left;
+            color: #08438E;
+            font-family: calibri;
+            font-size: 20;
+            padding: 5px;
+
+        }
+
+        #heading {
+            text-decoration: bold;
+            text-align: center;
+            margin-top: 80px;
+            width: 500px;
+            border: 1px solid #CEE2FA;
+            text-align: center;
+            color: #08438E;
+            background-color: #CEE2FA;
+            font-family: calibri;
+            font-size: 20;
+            padding: 5px;
+        }
+
+        h4 {
+            padding: 0;
+            margin: 0;
+        }
+
+        #calc1,
+        #calc2,
+        #form {
+            display: block;
+        }
+
+        #noOfTickets {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 80px;
+
+        }
+
+        #submitBtn {
+            display: block;
+        }
+
+        #submitBtn.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="heading">
+            <b>Booking Summary</b>
+        </div>
+        <div id="maincontent">
+            <form onsubmit="calc(event)" id="form">
+                <label>Actual cost per ticket: $9</label>
+                <br>
+                <br>
+                <label for="noOfTickets">Seats eligible for festive discount:</label>
+                <input type="text" name="noOfTickets" id="noOfTickets">
+                <div id="calc1">
+                    <p>Total cost of tickets: $<span id="lessThan2">0</span></p>
+                </div>
+                <div id="calc2">
+                    <p id="moreThan2"></p>
+                    <p id="total"></p>
+                </div>
+                <input type="submit" id="submitBtn" name="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <script>
+        function calc(event) {
+            event.preventDefault();
+            document.getElementById("calc1").style.display = "none";
+            document.getElementById("calc2").style.display = "none";
+            document.getElementById("noOfTickets").readOnly = true;
+            document.getElementById("submitBtn").classList.add("hidden");
+            var form = document.getElementById("form");
+            var noOfTickets = form.noOfTickets.value;
+            var moreThan2 = document.getElementById("moreThan2");
+            var total = 0;
+
+            if (noOfTickets <= 2) {
+                document.getElementById("lessThan2").innerHTML = noOfTickets * 9;
+                document.getElementById("calc1").style.display = "block";
+            }
+            else if (noOfTickets <= 5) {
+                var discount = 0.05;
+                moreThan2.innerHTML = "";
+                for (var i = 1; i <= noOfTickets; i++) {
+                    moreThan2.innerHTML += Math.floor(discount * 100) + "% discount! on Ticket " + i + "<br>";
+                    total += (9 - (9 * discount));
+                    discount += 0.02;
+                }
+                document.getElementById("total").innerHTML = "Amount payable: $" + total.toFixed(2);
+                document.getElementById("calc2").style.display = "block";
+            }
+            else {
+                document.getElementById("total").innerHTML = "";
+                moreThan2.innerHTML = "Invalid Input,Please Enter the Ticket Count less than 6";
+                document.getElementById("calc2").style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>

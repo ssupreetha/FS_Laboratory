@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Details</title>
+    <style>
+        div#maincontent {
+            height: 200px;
+            width: 600px;
+            border: 1px solid #CEE2FA;
+            text-align: left;
+            color: #08438E;
+            font-family: calibri;
+            font-size: 20px;
+            padding: 5px;
+        }
+        div#heading {
+            text-decoration: bold;
+            text-align: center;
+            margin-top: 80px;
+            width: 600px;
+            border: 1px solid #CEE2FA;
+            text-align: center;
+            color: #08438E;
+            background-color: #CEE2FA;
+            font-family: calibri;
+            font-size: 20px;
+            padding: 5px;
+        }
+        h4 {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Function to prompt user for number of seats
+        function promptForSeats() {
+            const numSeats = prompt("Enter the number of seats:");
+            if (numSeats !== null && numSeats !== "") {
+                // Validate if the entered value is a positive integer
+                const isValidInput = /^\d+$/.test(numSeats) && parseInt(numSeats) > 0;
+                if (isValidInput) {
+                    calculateTotalPrice(parseInt(numSeats));
+                } else {
+                    alert("Please enter a valid positive integer.");
+                    promptForSeats();
+                }
+            }
+        }
+    </script>
+    <center>
+        <div id="heading">
+            <b>Theatre Drama</b>
+        </div>
+        <div id="maincontent">
+            <h4>Your Ticket Details:</h4>
+            <br>
+            <button onclick="promptForSeats()">Enter number of seats</button>
+            <br>
+            <div id="ticketDetails"></div>
+            <script>
+                function calculateTotalPrice(numSeats) {
+                    let totalPrice = 0;
+
+                    // Condition 1: If seats to be booked are not more than 2, cost per ticket remains $9
+                    if (numSeats <= 2) {
+                        totalPrice = numSeats * 9;
+                        document.getElementById("ticketDetails").innerHTML = "For " + numSeats + " tickets, you need to pay: $" + totalPrice.toFixed(2) + " instead of $" + (numSeats * 9).toFixed(2);
+                    }
+                    // Condition 2: If seats are 6 or more, booking is not allowed
+                    else if (numSeats >= 6) {
+                        document.getElementById("ticketDetails").innerHTML = "Booking is not allowed for more than 5 seats.";
+                    }
+                    // Condition 3: If seats to be booked are more than 2 but less than 5
+                    else {
+                        let discount = 5; // Initial discount percentage for customer 1
+                        let ticketDetails = "";
+
+                        // Loop to calculate total cost by applying discounts for customer 1, 2, 3, 4, 5
+                        for (let i = 0; i < 5 && i < numSeats; i++) {
+                            const discountedPrice = 9 * (1 - discount / 100);
+                            ticketDetails += "Ticket for Customer " + (i + 1) + " gets " + discount + "% discount!, Cost is: $" + discountedPrice.toFixed(2) + "<br>";
+                            totalPrice += discountedPrice;
+                            discount += 2; // Increment discount by 2 percent for each additional customer
+                        }
+                        ticketDetails += "For " + numSeats + " tickets, you need to pay: $" + totalPrice.toFixed(2) + " instead of $" + (numSeats * 9).toFixed(2);
+                        document.getElementById("ticketDetails").innerHTML = ticketDetails;
+                    }
+                }
+            </script>
+        </div>
+    </center>
+</body>
+</html>
